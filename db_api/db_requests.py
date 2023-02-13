@@ -60,10 +60,10 @@ class Database:
     def create_table_items(self):
         sql = """
         CREATE TABLE Items(
-        id int NOT NULL
-        name text
-        count int
-        photo_path text
+        id int NOT NULL,
+        name text,
+        count int,
+        photo_path text,
         PRIMARY KEY (id)
         );
         """
