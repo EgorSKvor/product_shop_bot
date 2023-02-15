@@ -54,5 +54,5 @@ async def see_new_item(call: types.CallbackQuery):
 
 @dp.message_handler(commands='help')
 async def answer_help_command(message: types.Message):
-    await message.answer(text='Мне нечем помочь')
+    await message.answer(text='Оформление будет позже, пока сплю')
 
