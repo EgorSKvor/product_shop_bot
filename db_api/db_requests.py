@@ -91,13 +91,47 @@ class Database:
         sql = 'SELECT * FROM Items'
         return len(self.execute(sql, fetchall=True))
 
+    def create_table_basket(self):
+        sql = """
+        CREATE TABLE Basket(
+        id not null,
+        user_basket text,
+        PRIMARY KEY (id)
+        );
+        """
+        self.execute(sql, commit=True)
+
+    def add_item_basket(self, id: int, user_basket: str = ''):
+        sql = 'INSERT INTO Basket(id, user_basket) VALUES(?, ?)'
+        parameters = (id, user_basket)
+        self.execute(sql, parameters, commit=True)
+
+    def select_user_basket(self, **kwargs) -> tuple[int, str]:
+        sql = 'SELECT * FROM Basket WHERE '
+        sql, parameters = self.format_args(sql, kwargs)
+        data = self.execute(sql, parameters, fetchone=True)
+        if data is None:
+            self.add_item_basket(id=kwargs['id'])
+            data = (kwargs['id'], '')
+        return data
+
+    def update_basket(self, id: int, user_basket: str):
+        sql = 'UPDATE Basket SET user_basket=? WHERE id=?'
+        return self.execute(sql, parameters=(user_basket, id), commit=True)
+    def select_all_basket(self) -> list:
+        sql = 'SELECT * FROM Basket'
+        return self.execute(sql, fetchall=True)
+
     def delete_all(self):
         self.execute('DELETE FROM Users WHERE True', commit=True)
         self.execute('DELETE FROM Items WHERE True', commit=True)
+        self.execute('DELETE FROM Basket WHERE TRue', commit=True)
 
     def drop_all(self):
         self.execute('DROP TABLE Users', commit=True)
         self.execute('DROP TABLE Items', commit=True)
+        self.execute('DROP TABLE Basket', commit=True)
+
 
     @staticmethod
     def format_args(sql, parameters: dict) -> tuple:

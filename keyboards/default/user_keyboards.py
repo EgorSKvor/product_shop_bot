@@ -3,8 +3,8 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 commands_default_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='/start'),
-            KeyboardButton(text='/item')
+            KeyboardButton(text='/item'),
+            KeyboardButton(text='/basket')
         ],
         [
             KeyboardButton(text='/help'),

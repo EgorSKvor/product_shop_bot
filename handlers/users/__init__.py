@@ -1,5 +1,6 @@
 from .command_handlers import dp
-from .text_answers import dp
+from .basket_handlers import dp
+from .item_handlers import dp
 
 
 __all__ = ['dp']
